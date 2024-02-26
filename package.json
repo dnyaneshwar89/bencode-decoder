@@ -1,0 +1,14 @@
+{
+  "name": "bencode-decoder",
+  "version": "1.0.0",
+  "description": "package to decode torrent files ",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "author": "Dnyaneshwar B",
+  "license": "ISC",
+  "dependencies": {
+    "prettier": "^3.2.5"
+  }
+}
