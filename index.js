@@ -217,18 +217,71 @@ const decode = (input) => {
     //console.log(`Decoded output for input: ${input}\n OUTPUT: `);
     console.log(`OUTPUT: `);
     console.log(outputToPrint);
+    return;
   } catch (err) {
     console.log(`Error ocurred while decoding string: ${err.message}`);
     return;
   }
 };
 
+let args = process.argv.slice(2);
+
+const INPUT_TYPES = {
+  STRING: 'string',
+  FILE: 'file',
+};
+
+let inputType = null;
+let input = null;
+
+for (let i = 0; i < args.length; i++) {
+  const arg = args[i];
+  if (DEBUG) console.log(arg);
+  if (arg.startsWith('-s=') || arg.startsWith('-f=')) {
+    input = arg.slice(3);
+    inputType = arg.slice(0, 3);
+    if (inputType == '-s=') inputType = INPUT_TYPES.STRING;
+    else if (inputType === '-f=') inputType = INPUT_TYPES.FILE;
+    else inputType = null;
+
+    if (DEBUG) console.log(`Processing input for "=": ${input}`);
+  }
+  if (arg === '-s' || arg === '-f') {
+    input = args[i + 1];
+    if (arg === '-s') inputType = INPUT_TYPES.STRING;
+    else if (arg === '-f') inputType = INPUT_TYPES.FILE;
+    if (DEBUG) console.log(`Processing input for space: ${input}`);
+  }
+  if (input) break;
+}
+
+if (input) {
+  if (inputType === INPUT_TYPES.FILE) {
+    const data = fs.readFileSync(input, {
+      encoding: 'binary',
+      flag: 'r',
+    });
+    decode(data);
+  } else if (inputType === INPUT_TYPES.STRING) {
+    decode(input);
+  } else {
+    console.log(
+      `You need to pass input using flags '-s' for string input or '-f' for file input`
+    );
+  }
+} else
+  console.log(
+    `You need to pass input using flags '-s' for string input or '-f' for file input`
+  );
+
+//console.log(args);
+
 //decode('4:spam');
 //decode('i82e');
 //decode('li82ee');
 //decode('d4:spamli82eee');
-const data = fs.readFileSync('./sample.torrent', {
-  encoding: 'binary',
-  flag: 'r',
-});
-decode(data);
+//const data = fs.readFileSync('./sample.torrent', {
+//encoding: 'binary',
+//flag: 'r',
+//});
+//decode(data);
