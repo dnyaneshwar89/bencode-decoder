@@ -234,8 +234,29 @@ const INPUT_TYPES = {
 let inputType = null;
 let input = null;
 
+const printHelp = () => {
+  const lengthForString = 20;
+  console.log('Usage: index [options] <string | file_path>');
+  console.log('\nArguments:');
+  console.log(
+    `${'string'.padEnd(lengthForString)}\t\t\tbencoded string or file_path to a bencoded string(torrent file)`
+  );
+  console.log('\nOptions:');
+  console.log(`${'-s'.padEnd(lengthForString)}\t\t\tbencoded string to decode`);
+  console.log(
+    `${'-f'.padEnd(lengthForString)}\t\t\tfile path to file storing bencoded string to decode`
+  );
+  console.log(
+    `${'-help, --help, help'.padEnd(lengthForString)}\t\t\tdisplay help`
+  );
+};
+
 for (let i = 0; i < args.length; i++) {
   const arg = args[i];
+  if (['--help', '-help', 'help'].includes(arg)) {
+    printHelp();
+    return;
+  }
   if (DEBUG) console.log(arg);
   if (arg.startsWith('-s=') || arg.startsWith('-f=')) {
     input = arg.slice(3);
