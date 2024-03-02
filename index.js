@@ -236,10 +236,10 @@ let input = null;
 
 const printHelp = () => {
   const lengthForString = 20;
-  console.log('Usage: index [options] <string | file_path>');
+  console.log('Usage: index <options> <string | file_path>');
   console.log('\nArguments:');
   console.log(
-    `${'string'.padEnd(lengthForString)}\t\t\tbencoded string or file_path to a bencoded string(torrent file)`
+    `${'string,file_path'.padEnd(lengthForString)}\t\t\tbencoded string or file_path to a bencoded string(torrent file)`
   );
   console.log('\nOptions:');
   console.log(`${'-s'.padEnd(lengthForString)}\t\t\tbencoded string to decode`);
@@ -261,7 +261,7 @@ for (let i = 0; i < args.length; i++) {
   if (arg.startsWith('-s=') || arg.startsWith('-f=')) {
     input = arg.slice(3);
     inputType = arg.slice(0, 3);
-    if (inputType == '-s=') inputType = INPUT_TYPES.STRING;
+    if (inputType === '-s=') inputType = INPUT_TYPES.STRING;
     else if (inputType === '-f=') inputType = INPUT_TYPES.FILE;
     else inputType = null;
 
