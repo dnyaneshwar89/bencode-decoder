@@ -22,6 +22,11 @@ npm i
 
 ```sh
  $ node index.js help
+```
+
+OUTPUT:
+
+```sh
 Usage: node index.js <options> <string | file_path>
 
 Arguments:
@@ -37,6 +42,11 @@ Options:
 
 ```sh
 $ node index.js -s "d10:dictionaryd6:sample24:This a sample dictionarye7:integer2:074:listli1ei2ei3e1:4e6:string23:This is a sample stringe"
+```
+
+OUTPUT:
+
+```sh
 OUTPUT:
 {
     "dictionary": {
@@ -57,6 +67,11 @@ OUTPUT:
 
 ```sh
 $ node index.js -f ./sample.torrent
+```
+
+OUTPUT:
+
+```sh
 OUTPUT:
 {
     "announce": "udp://tracker.openbittorrent.com:80",
