@@ -32,12 +32,6 @@ const decodeFirstComponent = (input) => {
     }
     case 'l': {
       const list = [];
-      //if (input[-1] === "e") {
-      //console.log('last is not e')
-      //console.log(`Input ${input} is not a valid bencoded string`);
-      //return null
-      //}
-      //let inputForWhile = input.slice(1, -1)
       let inputForWhile = input.slice(1);
       while (true) {
         if (DEBUG) console.log(`Decoding list input for ${inputForWhile}`);
@@ -70,12 +64,6 @@ const decodeFirstComponent = (input) => {
     }
     case 'd': {
       const dict = {};
-      //if (input[-1] === "e") {
-      //console.log('last is not e')
-      //console.log(`Input ${input} is not a valid bencoded string`);
-      //return null
-      //}
-      //let inputForWhile = input.slice(1, -1)
       let inputForWhile = input.slice(1);
       while (true) {
         // first decode for key
@@ -180,30 +168,10 @@ const decodeFirstComponent = (input) => {
     }
   }
 };
-//console.log(JSON.stringify(decodeFirstComponent('l4:spami909ei42eli23el3:hiieee')))
-//console.log(JSON.stringify(decodeFirstComponent('li23e3:hiie')))
-//console.log(JSON.stringify(decodeFirstComponent('li1ee')))
-//console.log(JSON.stringify(decodeFirstComponent('i2398348e')))
-//console.log(JSON.stringify(decodeFirstComponent('4:spam')))
-//console.log(JSON.stringify(decodeFirstComponent('12:spamspamspam')))
-//console.log(JSON.stringify(decodeFirstComponent('d4:spami07e4:listl4:spami909ei42eli23el3:hiieeee')))
-//console.log(JSON.stringify(decodeFirstComponent('d8:announce40:udp://tracker.leechers-paradise.org:696913:announce-listll40:udp://tracker.leechers-paradise.org:6969el34:udp://tracker.coppersurfer.tk:6969eee')))
-//console.log(JSON.stringify(decodeFirstComponent('d8:announce40:udp://tracker.leechers-paradise.org:696913:announce-listll40:udp://tracker.leechers-paradise.org:6969el40:udp://tracker.leechers-paradise.org:6969eee')))
-//console.log(JSON.stringify(decodeFirstComponent('d8:announce40:udp://tracker.leechers-paradise.org:696913:announce-listlli1eeli2eeee')))
-//console.log(JSON.stringify(decodeFirstComponent('d4:spam5:hello4:listli23el3:hiieee')))
-//console.log(JSON.stringify(decodeFirstComponent('d7:addressd7:country2:US5:state2:CAe3:agei18e7:hobbiesl7:reading7:cyclinge4:name4:Johne')))
-//console.log(JSON.stringify(decodeFirstComponent('d5:filesld6:lengthi4850e4:pathl21:Tears of Steel.de.srteed6:lengthi4755e4:pathl21:Tears of Steel.en.srteed6:lengthi4944e4:pathl21:Tears of Steel.es.srteed6:lengthi4618e4:pathl21:Tears of Steel.fr.srteed6:lengthi4746e4:pathl21:Tears of Steel.it.srteed6:lengthi4531e4:pathl21:Tears of Steel.nl.srteed6:lengthi9558e4:pathl21:Tears of Steel.no.srteed6:lengthi5933e4:pathl21:Tears of Steel.ru.srteed6:lengthi571346576e4:pathl19:Tears of Steel.webmeed6:lengthi35996e4:pathl10:poster.jpgeeee')))
-//console.log(JSON.stringify(decodeFirstComponent('d5:filesld6:lengthi1234e4:pathl10:tears_fileeeee')))
 
-//const data = fs.readFileSync('./mytorrent.torrent', { encoding: "binary", flag: "r" })
-//const data = fs.readFileSync('./tears-of-steel.torrent', { encoding: "binary", flag: "r" })
-//const data = fs.readFileSync('./sample.torrent', {
-//encoding: 'binary',
-//flag: 'r',
-//});
-//console.log(JSON.stringify({ finalData: decodeFirstComponent(data.slice(0, 300)) }, null, 4))
-//console.log(JSON.stringify({ finalData: decodeFirstComponent(data) }, null, 4));
-
+/**
+ * @param {string} input - bencoded string or file path to file containing bencoded string
+ * */
 const decode = (input) => {
   try {
     const output = decodeFirstComponent(input);
@@ -214,7 +182,6 @@ const decode = (input) => {
     let outputToPrint = output.decodedInput;
     if (typeof outputToPrint === 'object')
       outputToPrint = JSON.stringify(outputToPrint, null, 4);
-    //console.log(`Decoded output for input: ${input}\n OUTPUT: `);
     console.log(`OUTPUT: `);
     console.log(outputToPrint);
     return;
@@ -234,6 +201,9 @@ const INPUT_TYPES = {
 let inputType = null;
 let input = null;
 
+/**
+ * prints output for help command
+ * */
 const printHelp = () => {
   const lengthForString = 20;
   console.log('Usage: index <options> <string | file_path>');
@@ -294,15 +264,3 @@ if (input) {
   console.log(
     `You need to pass input using flags '-s' for string input or '-f' for file input`
   );
-
-//console.log(args);
-
-//decode('4:spam');
-//decode('i82e');
-//decode('li82ee');
-//decode('d4:spamli82eee');
-//const data = fs.readFileSync('./sample.torrent', {
-//encoding: 'binary',
-//flag: 'r',
-//});
-//decode(data);
